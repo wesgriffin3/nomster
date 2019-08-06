@@ -78,6 +78,9 @@
     <div class="col-12 col-sm-6">
       <blockquote>
         <%= photo.caption.present? %>
+        <% if @photo.picture_url %>
+          <%= image_tag @photo.image_url, :height => "150 px" %>
+        <% end %>
         <small><%= photo.caption %></small>
       </blockquote>
     </div>
@@ -94,8 +97,7 @@
 <button type="button" class="btn btn-primary btn-lg float-right" data-toggle="modal" data-target="#myModal">
   Add a comment
 </button>
-    <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
-    <% end %>
+
 <!-- Modal comments-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -107,7 +109,7 @@
           <h4 class="modal-title" id="myModalLabel">Add a comment</h4>
           </div>
           <div class="clear"></div>
-
+        <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
           <div class="modal-body">
             <%= f.input :message %>
             <%= f.input :rating, as: :select, collection: Comment::RATINGS %>
@@ -133,10 +135,12 @@
           <span aria-hidden="true">×</span>
         </button>
         <h4 class="modal-title" id="photoModalLabel">Add Photo</h4>
-        </div>
-        <div class="clear"></div>
-          <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+      </div>        
+        <%= simple_form_for @photo, url: place_photos_path(@place) do |f| %>
+          <div class="modal-body">
             <%= f.input :caption %>
+            <%= f.input :picture %>
+          </div>
             <%= f.submit "Add a Photo", class: 'btn btn-primary' %> 
         </div>
         <% end %>
