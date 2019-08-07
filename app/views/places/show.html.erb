@@ -69,14 +69,15 @@
 <!--puts photos-->
 <div class="col-10 offset-1">
   <h1 class="float-left">Photos</h1>
+</div>
 
 <div class="row">
   <% @place.photos.each do |photo| %>
     <div class="col-12 col-sm-6">
       <blockquote>
-        <%= photo.caption.present? %>
+        <% photo.caption.present? %>
         <% if @photo.picture_url %>
-          <%= image_tag @photo.image_url, :height => "150 px" %>
+          <% image_tag photo.image_url.to_s, :height => "150 px" %>
         <% end %>
         <small><%= photo.caption %></small>
       </blockquote>
