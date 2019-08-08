@@ -76,9 +76,7 @@
     <div class="col-12 col-sm-6">
       <blockquote>
         <% photo.caption.present? %>
-        <% if @photo.picture_url %>
-          <% image_tag photo.image_url.to_s, :height => "150 px" %>
-        <% end %>
+          <%= image_tag photo.picture.url, :height => "150px" %>
         <small><%= photo.caption %></small>
       </blockquote>
     </div>
